@@ -13,22 +13,20 @@ import javax.servlet.http.HttpServletResponse;
 import ch.hearc.servlet.model.Personne;
 
 @WebServlet(
-		name="paramServlet",
-		urlPatterns = "/param"
+		name="attributeServlet",
+		urlPatterns = "/attribute"
 )
-public class ParamController extends HttpServlet{
+public class AttributeController extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		String nom = req.getParameter("nom");
-		String prenom = req.getParameter("prenom");
+		Personne p = (Personne)req.getAttribute("personne");
+		PrintWriter out = resp.getWriter();
 		
-		System.out.println("nom: " + nom + " , prenom: " + prenom);
+		out.append("<p>Personne : " + p.toString() + "</p>");
 		
-		req.setAttribute("personne", new Personne(nom, prenom));
 		
-		req.getRequestDispatcher("/attribute").forward(req, resp);
 	}
 
 	@Override
@@ -38,5 +36,4 @@ public class ParamController extends HttpServlet{
 	}
 
 	
-
 }
