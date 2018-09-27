@@ -20,61 +20,23 @@ public class BasicController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		String contextPath = req.getContextPath();
-		String servletPath = req.getServletPath();
-		String pathInfo = req.getPathInfo();
-		
+		//récupération de l'objet permettant d'écrire dans le flux de sortie
 		PrintWriter out = resp.getWriter();
 		
-		out.append("<p>ContextPath: " + contextPath + "</p>");
-		out.append("<p>ServletPath: " + servletPath + "</p>");
-		out.append("<p>PathInfo: " + pathInfo + "</p>");
+		//header content length
+		resp.setContentLength(1024);
 		
-		setContextDateValue();
+		//header content-type
+		resp.setContentType("text/html");
 		
-		out.append("<p>Contexte date value: " + getServletContext().getAttribute("date"));
+		//définition d'un header custom
+		resp.setHeader("monCustomHeader", "customHeader");
 		
-		printHeader(req,out);
-		
-		printRequestParams(req,out);
-	}
-
-	private void printRequestParams(HttpServletRequest req, PrintWriter out) {
-		
-		out.append("<h2> Request params </h2>");
-		
-		Enumeration paramNames = req.getParameterNames();
-		
-		while(paramNames.hasMoreElements()) {
-			
-			String paramName = (String) paramNames.nextElement();
-			String paramValue = req.getParameter(paramName);
-			out.append(String.format("<p>Paramètres: %s, valeur: %s", paramName, paramValue ));
-		}
+		out.append("<p>Hello World</p>");
 		
 	}
 
-	private void printHeader(HttpServletRequest req, PrintWriter out) {
-		
-		out.append("<h2> Header values </h2>");
-		
-		Enumeration headerNames = req.getHeaderNames();
-		
-		while(headerNames.hasMoreElements()) {
-			
-			String headerName = (String) headerNames.nextElement();
-			String headerValue = req.getHeader(headerName);
-			out.append(String.format("<p>Header: %s, valeur: %s", headerName, headerValue ));
-		}
-		
-	}
 
-	private void setContextDateValue() {
-		Date date = (Date) getServletContext().getAttribute("date");
-		getServletContext().setAttribute("date", new Date());
-		
-		
-	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
