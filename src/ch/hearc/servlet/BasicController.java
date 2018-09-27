@@ -2,6 +2,7 @@ package ch.hearc.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,6 +28,17 @@ public class BasicController extends HttpServlet{
 		out.append("<p>ContextPath: " + contextPath + "</p>");
 		out.append("<p>ServletPath: " + servletPath + "</p>");
 		out.append("<p>PathInfo: " + pathInfo + "</p>");
+		
+		setContextDateValue();
+		
+		out.append("<p>Contexte date value: " + getServletContext().getAttribute("date"));
+	}
+
+	private void setContextDateValue() {
+		Date date = (Date) getServletContext().getAttribute("date");
+		getServletContext().setAttribute("date", new Date());
+		
+		
 	}
 
 	@Override
