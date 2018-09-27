@@ -3,6 +3,7 @@ package ch.hearc.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,6 +33,23 @@ public class BasicController extends HttpServlet{
 		setContextDateValue();
 		
 		out.append("<p>Contexte date value: " + getServletContext().getAttribute("date"));
+		
+		printHeader(req,out);
+	}
+
+	private void printHeader(HttpServletRequest req, PrintWriter out) {
+		
+		out.append("<h2> Header values </h2>");
+		
+		Enumeration headerNames = req.getHeaderNames();
+		
+		while(headerNames.hasMoreElements()) {
+			
+			String headerName = (String) headerNames.nextElement();
+			String headerValue = req.getHeader(headerName);
+			out.append(String.format("<p>Header: %s, valeur: %s", headerName, headerValue ));
+		}
+		
 	}
 
 	private void setContextDateValue() {
