@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ch.hearc.servlet.model.Personne;
+
 @WebServlet(
 		name="basicServlet",
 		urlPatterns = "/info/*"
@@ -18,15 +20,14 @@ public class BasicController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		String contextPath = req.getContextPath();
-		String servletPath = req.getServletPath();
-		String pathInfo = req.getPathInfo();
+		String nom = req.getParameter("nom");
+		String prenom = req.getParameter("prenom");
 		
-		PrintWriter out = resp.getWriter();
+		System.out.println("nom: " + nom + " , prenom: " + prenom);
 		
-		out.append("<p>ContextPath: " + contextPath + "</p>");
-		out.append("<p>ServletPath: " + servletPath + "</p>");
-		out.append("<p>PathInfo: " + pathInfo + "</p>");
+		req.setAttribute("personne", new Personne(nom, prenom));
+		
+		req.getRequestDispatcher("/attribute");
 	}
 
 	@Override
