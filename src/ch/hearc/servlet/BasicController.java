@@ -35,6 +35,23 @@ public class BasicController extends HttpServlet{
 		out.append("<p>Contexte date value: " + getServletContext().getAttribute("date"));
 		
 		printHeader(req,out);
+		
+		printRequestParams(req,out);
+	}
+
+	private void printRequestParams(HttpServletRequest req, PrintWriter out) {
+		
+		out.append("<h2> Request params </h2>");
+		
+		Enumeration paramNames = req.getParameterNames();
+		
+		while(paramNames.hasMoreElements()) {
+			
+			String paramName = (String) paramNames.nextElement();
+			String paramValue = req.getParameter(paramName);
+			out.append(String.format("<p>Paramètres: %s, valeur: %s", paramName, paramValue ));
+		}
+		
 	}
 
 	private void printHeader(HttpServletRequest req, PrintWriter out) {
