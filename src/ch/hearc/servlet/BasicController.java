@@ -1,15 +1,10 @@
 package ch.hearc.servlet;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Date;
-import java.util.Enumeration;
-
-import javax.servlet.ServletException;
+import java.io.*;
+import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
+
 
 @WebServlet(
 		name="basicServlet",
@@ -35,14 +30,5 @@ public class BasicController extends HttpServlet{
 		out.append("<p>Hello World</p>");
 		
 	}
-
-
-
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.doPost(req, resp);
-	}
-
 	
 }
